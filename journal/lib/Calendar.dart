@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:journal/customColor.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:journal/main.dart';
 import 'package:journal/DayView.dart';
@@ -125,6 +126,23 @@ class _CalendarState extends State<Calendar> {
                   ),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text("Personalize Color"),
+              trailing: RaisedButton(
+                onPressed: () {
+                  Route route = MaterialPageRoute(
+                    builder: (context) => customColor(),
+                  );
+                  Navigator.push(context, route);
+                },
+              ),
             ),
           ],
         ),
