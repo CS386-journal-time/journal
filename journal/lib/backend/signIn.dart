@@ -34,9 +34,9 @@ class _SignInState extends State<SignIn> {
     return loading ? Loading() : Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blue,
         elevation: 0.0,
-        title: Text('Sign In to Journal Time'),
+        title: Text('Sign in to Journal Time'),
         actions: <Widget>[
           FlatButton.icon(
               onPressed: () {
@@ -74,29 +74,36 @@ class _SignInState extends State<SignIn> {
                 },
               ),
               SizedBox(height: 20.0),
-              RaisedButton(
-                color: Colors.green[600],
-                child: Text(
-                  'Sign in',
-                  style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async{
-                  if (_formKey.currentState.validate()) {
+              ButtonTheme(
+                minWidth: 200,
+                height: 50,
+                child: RaisedButton(
+                  color: Colors.blue,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  child: Text(
+                    'Sign In',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async{
+                    if (_formKey.currentState.validate()) {
 
-                    setState(() {
-                      loading = true;
-                    });
-
-                    dynamic result = _auth.signInAccount(email, password);
-
-                    if(result == null) {
                       setState(() {
-                      error = 'Could not sign in with given credentials.';
-                      loading = false;
-                     });
+                        loading = true;
+                      });
+
+                      dynamic result = _auth.signInAccount(email, password);
+
+                      if(result == null) {
+                        setState(() {
+                        error = 'Could not sign in with given credentials.';
+                        loading = false;
+                       });
+                      }
                     }
                   }
-                }
+                ),
               ),
               SizedBox(height: 12.0),
               Text(

@@ -1,4 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:journal/main.dart';
 import 'package:journal/journal/DayView.dart';
@@ -39,8 +41,9 @@ class _CalendarState extends State<Calendar> {
     return Scaffold(
       appBar: AppBar(
         actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.person),
+          FlatButton.icon(
+            icon: Icon(FontAwesomeIcons.signOutAlt),
+            label: Text('Sign out'),
             onPressed: () async{
               await _auth.signOut();
             },

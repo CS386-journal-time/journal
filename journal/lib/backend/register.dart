@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:journal/backend/serverAuth.dart';
 import 'package:journal/shared/constants.dart';
 import 'package:journal/shared/loading.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 
 class Register extends StatefulWidget {
@@ -31,7 +32,7 @@ class _RegisterState extends State<Register> {
     return loading ? Loading() : Scaffold(
       backgroundColor: Colors.grey,
       appBar: AppBar(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: Colors.blue,
         elevation: 0.0,
         title: Text('Sign up for Journal Time'),
         actions: <Widget>[
@@ -39,7 +40,7 @@ class _RegisterState extends State<Register> {
               onPressed: () {
                 widget.toggleView();
               },
-              icon: Icon(Icons.person),
+              icon: Icon(FontAwesomeIcons.signInAlt),
               label: Text('Sign In'),
           ),
         ],
@@ -71,28 +72,35 @@ class _RegisterState extends State<Register> {
                 },
               ),
               SizedBox(height: 20.0),
-              RaisedButton(
-                color: Colors.green[600],
-                child: Text(
-                'Register',
-                style: TextStyle(color: Colors.white),
-                ),
-                onPressed: () async {
-                  if (_formKey.currentState.validate()) {
-                    setState(() {
-                      loading = true;
-                    });
-                    dynamic result = await _auth
-                        .registerAccount(email, password);
-                    if(result == null) {
+              ButtonTheme(
+                minWidth: 200,
+                height: 50,
+                child: RaisedButton(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0)
+                  ),
+                  color: Colors.blue,
+                  child: Text(
+                  'Register',
+                  style: TextStyle(color: Colors.white),
+                  ),
+                  onPressed: () async {
+                    if (_formKey.currentState.validate()) {
                       setState(() {
-                        error = 'Your email is already registered '
-                            'to an account or is not formatted correctly.';
-                        loading = false;
+                        loading = true;
                       });
+                      dynamic result = await _auth
+                          .registerAccount(email, password);
+                      if(result == null) {
+                        setState(() {
+                          error = 'Your email is already registered '
+                              'to an account or is not formatted correctly.';
+                          loading = false;
+                        });
+                      }
                     }
-                  }
-                },
+                  },
+                ),
               ),
               SizedBox(height: 12.0),
               Text(
