@@ -9,8 +9,14 @@ import 'dart:typed_data';
 import 'package:screenshot/screenshot.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+File _imageFile;
+int _counter = 0;
+
+ScreenshotController screenshotController = ScreenshotController();
+
 class mapFeature extends StatefulWidget {
   final String selectDay;
+
 
   mapFeature({this.selectDay});
 
@@ -41,19 +47,30 @@ class _mapFeatureState extends State<mapFeature> {
                 height: 45.0,
                 point: new LatLng(35.198, -111.651),
                 builder: (context) => new Container(
-                  child: IconButton(
-                    icon: Icon(Icons.location_on),
-                    color: Colors.red,
-                    iconSize: 45.0,
-                    onPressed: () {
-                      print('Marker tapped');
-                    },
-                  ),
+                  children: <Widget>[
+                    Screenshot(
+                      controller: screenshotController,
+                      child: IconButton(
+                        icon: Icon(Icons.location_on),
+                        color: Colors.red,
+                        iconSize: 45.0,
+                        onPressed: () {
+                          print('Marker tapped');
+                        },
+                      ),
+                    ),
+                    _imageFile != null ? Image.file(_imageFile) : Container(),
+                  ],
+
+
                 ),
               ),
             ]),
           ]),
-      floatingActionButton: FloatingActionButton.extended(
+
+     //Temporarily commenting out to use screenshotting floatingActionButton
+
+     /* floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Route route = MaterialPageRoute(
             builder: (context) => JournalEntry(selectDay: widget.selectDay),
@@ -63,12 +80,38 @@ class _mapFeatureState extends State<mapFeature> {
         label: Text('Save'),
         icon: Icon(FontAwesomeIcons.save),
         backgroundColor: Colors.green[900],
+      ),*/
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          _imageFile = null;
+          screenshotController
+              .capture()
+              .then((File image) async {
+            setState(() {
+              _imageFile = image;
+            });
+            final result = await ImageGallerySaver.save(image.readAsBytesSync());
+            print("Location Saved to Gallery");
+          }).catchError((onError) {
+            print(onError);
+          });
+        },
+        tooltip: 'Inc',
+        child: Icon(Icons.add),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.endTop,
+
+    final directory = (await getApplicationDocumentsDirectory ()).path;
+    String fileName = DateTime.now().toIso8601String();
+    path = '$directory/$fileName.png';
+
+    screenshotController.capture(
+    path:path //set path where screenshot will be saved
+    );
     );
   }
 
-//
+
+
 
   Widget mapCard(File localImage) {
     return Container(
@@ -88,4 +131,37 @@ class _mapFeatureState extends State<mapFeature> {
       ),
     );
   }
+}
+
+
+@override
+Widget build(BuildContext context) {
+  return Scaffold(
+    appBar: AppBar(
+      title: Text(widget.title),
+    ),
+    body: Container(
+      child: new Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Screenshot(
+              controller: screenshotController,
+              child: Column(
+                children: <Widget>[
+                  Text(
+                    'You have pushed the button this many times:' +
+                        _counter.toString(),
+                  ),
+                  FlutterLogo(),
+                ],
+              ),
+            ),
+            _imageFile != null ? Image.file(_imageFile) : Container(),
+          ],
+        ),
+      ),
+    ),
+ // This trailing comma makes auto-formatting nicer for build methods.
+  );
 }
