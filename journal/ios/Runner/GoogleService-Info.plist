@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>201984444393-9u3evfh5j97kn9aah28e2lhdi0lseqbj.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.201984444393-9u3evfh5j97kn9aah28e2lhdi0lseqbj</string>
+	<key>API_KEY</key>
+	<string>AIzaSyA2CxyiAEQTiEineMwNN7mk3fsfFEBwHvM</string>
+	<key>GCM_SENDER_ID</key>
+	<string>201984444393</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.team3.journaltime</string>
+	<key>PROJECT_ID</key>
+	<string>journal-time-dc5d9</string>
+	<key>STORAGE_BUCKET</key>
+	<string>journal-time-dc5d9.appspot.com</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:201984444393:ios:198927622cf2a9263b2d78</string>
+	<key>DATABASE_URL</key>
+	<string>https://journal-time-dc5d9.firebaseio.com</string>
+</dict>
+</plist>

@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
-import 'DayView.dart';
-import 'package:intl/intl.dart';
+import 'dart:io';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'Photo.dart';
-import 'package:image_save/image_save.dart';
+import 'package:journal/journal/Photo.dart';
+
 
 class JournalEntry extends StatelessWidget {
   final String selectDay;
+  String textEntry;
+  List<File> imageServerList = new List(3);
+  List<double> coordinatesList = new List(2);
+
 
   JournalEntry({this.selectDay});
 
@@ -15,6 +18,15 @@ class JournalEntry extends StatelessWidget {
   void dispose() {
     myController.dispose();
   }
+
+void saveToDatabase()
+{
+  coordinatesList[0] = 35.1983;
+  coordinatesList[1] = 111.6513;
+
+  //DatabaseService data = new DatabaseService();
+  //data.updateEntryData(textEntry, imageServerList, coordinatesList);
+}
 
   // text input
   Widget textBox() {
@@ -71,11 +83,7 @@ class JournalEntry extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
-          Route route = MaterialPageRoute(
-              //builder: (context) =>
-              //DayView(choiceDay: choiceDay, journalText: myController.text),
-              );
-          Navigator.push(context, route);
+          saveToDatabase();
         },
         label: Text('Save'),
         icon: Icon(FontAwesomeIcons.save),

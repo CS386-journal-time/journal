@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:journal/Calendar.dart';
+import 'package:journal/backend/user.dart';
+import 'package:provider/provider.dart';
+import 'package:journal/backend/interfaceWrapper.dart';
+import 'package:journal/backend/serverAuth.dart';
 
 void main() {
   runApp(MyApp());
@@ -28,8 +31,11 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Calendar(),
+    return StreamProvider<User>.value(
+      value: ServerAuth().user,
+      child: MaterialApp(
+        home: Wrapper(),
+      ),
     );
   }
 }

@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:journal/main.dart';
-import 'package:journal/DayView.dart';
+import 'package:journal/journal/DayView.dart';
 import 'package:intl/intl.dart';
+import 'package:journal/backend/serverAuth.dart';
 
 class Calendar extends StatefulWidget {
   @override
@@ -13,6 +14,7 @@ class _CalendarState extends State<Calendar> {
   CalendarController _controller;
   DateTime choiceDay;
   String selectDay;
+  final ServerAuth _auth = new ServerAuth();
 
   @override
   void initState() {
@@ -36,6 +38,14 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          IconButton(
+            icon: Icon(Icons.person),
+            onPressed: () async{
+              await _auth.signOut();
+            },
+          ),
+        ],
         title: Center(
           child: Text('Journal Time'),
         ),

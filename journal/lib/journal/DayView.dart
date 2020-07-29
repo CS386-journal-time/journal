@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
-import 'JournalEntry.dart';
+import 'package:journal/main.dart';
+import 'package:journal/journal/JournalEntry.dart';
 
 class DayView extends StatefulWidget {
   final String selectDay;
