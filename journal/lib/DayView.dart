@@ -4,7 +4,6 @@ import 'JournalEntry.dart';
 
 class DayView extends StatefulWidget {
   final String selectDay;
-
   const DayView({Key key, this.selectDay}) : super(key: key);
 
   @override

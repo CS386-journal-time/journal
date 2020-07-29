@@ -4,35 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'Photo.dart';
 import 'package:image_save/image_save.dart';
+import 'package:journal/Journal.dart';
+import 'package:journal/mapFeature.dart';
 
 class JournalEntry extends StatelessWidget {
   final String selectDay;
 
   JournalEntry({this.selectDay});
-
-  final myController = TextEditingController();
-
-  void dispose() {
-    myController.dispose();
-  }
-
-  // text input
-  Widget textBox() {
-    final int maxLine = 30;
-    return Container(
-      padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-      height: maxLine * 8.0,
-      child: TextField(
-        controller: myController,
-        keyboardType: TextInputType.multiline,
-        maxLines: maxLine,
-        decoration: InputDecoration(
-          border: OutlineInputBorder(),
-          labelText: 'Journal Time',
-        ),
-      ),
-    );
-  }
 
   // scrollable image container
   Widget imageList() {
@@ -65,6 +43,26 @@ class JournalEntry extends StatelessWidget {
             children: <Widget>[
               textBox(),
               imageList(),
+              SizedBox(height: 20),
+              ButtonTheme(
+                minWidth: 200,
+                height: 50,
+                child: RaisedButton.icon(
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(10.0),
+                  ),
+                  onPressed: () {
+                    Route route = MaterialPageRoute(
+                      builder: (context) => mapFeature(selectDay: selectDay),
+                    );
+                    Navigator.push(context, route);
+                  },
+                  label: Text('View Map'),
+                  //color: Colors.blueGrey,
+                  textColor: Colors.white,
+                  icon: Icon(Icons.map),
+                ),
+              ),
             ],
           ),
         ],
@@ -72,9 +70,8 @@ class JournalEntry extends StatelessWidget {
       floatingActionButton: FloatingActionButton.extended(
         onPressed: () {
           Route route = MaterialPageRoute(
-              //builder: (context) =>
-              //DayView(choiceDay: choiceDay, journalText: myController.text),
-              );
+            builder: (context) => DayView(selectDay: selectDay),
+          );
           Navigator.push(context, route);
         },
         label: Text('Save'),
