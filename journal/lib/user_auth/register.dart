@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:journal/backend/serverAuth.dart';
+import 'file:///C:/Users/burch/OneDrive/Documents/NAU%20Summer%202020/CS%20386/journal/journal/lib/user_auth/serverAuth.dart';
 import 'package:journal/shared/constants.dart';
 import 'package:journal/shared/loading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';

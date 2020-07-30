@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:journal/backend/serverAuth.dart';
+import 'package:journal/user_auth/serverAuth.dart';
 import 'package:journal/shared/constants.dart';
 import 'package:journal/shared/loading.dart';
 

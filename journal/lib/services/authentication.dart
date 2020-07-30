@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:journal/backend/signIn.dart';
-import 'package:journal/backend/register.dart';
+import 'package:journal/user_auth/signIn.dart';
+import 'package:journal/user_auth/register.dart';
 
 
 class Authentication extends StatefulWidget {

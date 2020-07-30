@@ -5,7 +5,7 @@ import 'package:table_calendar/table_calendar.dart';
 import 'package:journal/main.dart';
 import 'package:journal/journal/DayView.dart';
 import 'package:intl/intl.dart';
-import 'package:journal/backend/serverAuth.dart';
+import 'package:journal/user_auth/serverAuth.dart';
 
 class Calendar extends StatefulWidget {
   @override
