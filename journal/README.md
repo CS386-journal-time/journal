@@ -29,7 +29,8 @@ Please read CONTRIBUTING.md for details on our code of conduct, and the process 
 
 ## Versioning
 
-Application is currently in development
+Application is currently in development under dev version:
+#### V 0.2.0
 
 ## Authors
 
