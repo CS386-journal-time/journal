@@ -8,13 +8,10 @@ import 'package:journal/shared/loading.dart';
 import 'package:journal/user_auth/serverAuth.dart';
 import 'package:provider/provider.dart';
 import 'package:journal/journal/Photo.dart';
+import 'Calendar.dart';
 
 class DayView extends StatefulWidget {
-
   final String selectDay;
-
-
-
 
   DayView({Key key, this.selectDay}) : super(key: key);
 
@@ -23,7 +20,6 @@ class DayView extends StatefulWidget {
 }
 
 class _DayViewState extends State<DayView> {
-
   final int maxLine = 30;
 
   String textEntry;
@@ -36,7 +32,6 @@ class _DayViewState extends State<DayView> {
 
   @override
   Widget build(BuildContext context) {
-
     return StreamBuilder(
       stream: Firestore.instance
           .collection('entries')
@@ -46,8 +41,6 @@ class _DayViewState extends State<DayView> {
           .snapshots(),
       builder: (context, snapshot) {
         if (!snapshot.hasData) {
-
-
           // bug with new data entries
           return Loading();
         } else {
@@ -64,11 +57,10 @@ class _DayViewState extends State<DayView> {
                       textEntry = _textController.text;
                     });
                     Route route = MaterialPageRoute(
-                      builder: (context) =>
-                          JournalEntry(
-                            selectDay: widget.selectDay,
-                            textEntry: textEntry,
-                          ),
+                      builder: (context) => JournalEntry(
+                        selectDay: widget.selectDay,
+                        textEntry: textEntry,
+                      ),
                     );
                     Navigator.push(context, route);
                   },
@@ -82,33 +74,59 @@ class _DayViewState extends State<DayView> {
                 children: <Widget>[
                   Column(
                     children: <Widget>[
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ButtonTheme(
+                        minWidth: 200,
+                        height: 50,
+                        child: RaisedButton.icon(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(10.0),
+                          ),
+                          onPressed: () {
+                            Route route = MaterialPageRoute(
+                              builder: (context) => Calendar(),
+                            );
+                            Navigator.push(context, route);
+                          },
+                          label: Text('Calendar'),
+                          //color: Colors.blueGrey,
+                          textColor: Colors.white,
+                          icon: Icon(Icons.explore),
+                        ),
+                      ),
                       Container(
                         padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
                         height: maxLine * 8.0,
                         child: docSnap['textEntry'] == ''
-                          ? TextField(
-                              enabled: false,
-                              controller: _textController,
-                              obscureText: false,
-                              keyboardType: TextInputType.multiline,
-                              maxLines: maxLine,
-                              decoration: InputDecoration(
-                                border: OutlineInputBorder(),
-                                labelText: 'Journal Time',
-                              ),
-                            )
-                        : Container(
-                            padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
-                            height: maxLine * 8.0,
-                            child: Text(docSnap['textEntry'])
-                        ),
+                            ? TextField(
+                                enabled: false,
+                                controller: _textController,
+                                obscureText: false,
+                                keyboardType: TextInputType.multiline,
+                                maxLines: maxLine,
+                                decoration: InputDecoration(
+                                  border: OutlineInputBorder(),
+                                  labelText: 'Journal Time',
+                                ),
+                              )
+                            : Container(
+                                padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
+                                height: maxLine * 8.0,
+                                child: Text(docSnap['textEntry'])),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.symmetric(
+                            vertical: 0, horizontal: 50),
+                        child: Image.asset('images/flag.jpg'),
                       ),
                     ],
-                    ),
-                  ],
                   ),
+                ],
               ),
-            );
+            ),
+          );
         }
       },
     );

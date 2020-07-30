@@ -7,12 +7,10 @@ import 'package:provider/provider.dart';
 import 'package:journal/models/entry.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:journal/shared/loading.dart';
-
-
-
+import 'mapFeature.dart';
+import 'Calendar.dart';
 
 class JournalEntry extends StatefulWidget {
-
   final String selectDay;
 
   final String textEntry;
@@ -24,15 +22,12 @@ class JournalEntry extends StatefulWidget {
 }
 
 class _JournalEntryState extends State<JournalEntry> {
-
   String textEntry;
 
   File imageEntry;
 
-
   @override
   Widget build(BuildContext context) {
-
     final int maxLine = 30;
 
     final _textController = TextEditingController();
@@ -50,12 +45,11 @@ class _JournalEntryState extends State<JournalEntry> {
           .collection(widget.selectDay)
           .document('context')
           .setData({
-            'textEntry' : textEntry,
-            'imageEntry' : imageEntry,
-          });
+        'textEntry': textEntry,
+        'imageEntry': imageEntry,
+      });
     }
-   // final entries = Provider.of<List<Entry>>(context);
-
+    // final entries = Provider.of<List<Entry>>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -95,6 +89,51 @@ class _JournalEntryState extends State<JournalEntry> {
               ),
             ),
             Photo(),
+            SizedBox(height: 20),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                ButtonTheme(
+                  minWidth: 200,
+                  height: 50,
+                  child: RaisedButton.icon(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    onPressed: () {
+                      Route route = MaterialPageRoute(
+                        builder: (context) => Calendar(),
+                      );
+                      Navigator.push(context, route);
+                    },
+                    label: Text('Calendar'),
+                    //color: Colors.blueGrey,
+                    textColor: Colors.white,
+                    icon: Icon(Icons.explore),
+                  ),
+                ),
+                ButtonTheme(
+                  minWidth: 200,
+                  height: 50,
+                  child: RaisedButton.icon(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10.0),
+                    ),
+                    onPressed: () {
+                      Route route = MaterialPageRoute(
+                        builder: (context) =>
+                            mapFeature(selectDay: widget.selectDay),
+                      );
+                      Navigator.push(context, route);
+                    },
+                    label: Text('View Map'),
+                    //color: Colors.blueGrey,
+                    textColor: Colors.white,
+                    icon: Icon(Icons.map),
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
       ),
