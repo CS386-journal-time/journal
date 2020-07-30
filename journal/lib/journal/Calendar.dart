@@ -1,8 +1,12 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:journal/main.dart';
-import 'package:journal/DayView.dart';
+import 'package:journal/journal/DayView.dart';
 import 'package:intl/intl.dart';
+import 'package:journal/user_auth/serverAuth.dart';
+import 'package:journal/journal/customColor.dart';
 
 class Calendar extends StatefulWidget {
   @override
@@ -13,6 +17,7 @@ class _CalendarState extends State<Calendar> {
   CalendarController _controller;
   DateTime choiceDay;
   String selectDay;
+  final ServerAuth _auth = new ServerAuth();
 
   @override
   void initState() {
@@ -36,6 +41,15 @@ class _CalendarState extends State<Calendar> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        actions: <Widget>[
+          FlatButton.icon(
+            icon: Icon(FontAwesomeIcons.signOutAlt),
+            label: Text('Sign out'),
+            onPressed: () async {
+              await _auth.signOut();
+            },
+          ),
+        ],
         title: Center(
           child: Text('Journal Time'),
         ),
@@ -95,25 +109,6 @@ class _CalendarState extends State<Calendar> {
                     ),
                     onPressed: () {
                       Route route = MaterialPageRoute(
-                        builder: (context) => MyHomePage(),
-                      );
-                      Navigator.push(context, route);
-                    },
-                    label: Text('Main'),
-                    //color: selectColor,
-                    textColor: Colors.white,
-                    icon: Icon(Icons.navigation),
-                  ),
-                ),
-                ButtonTheme(
-                  minWidth: 200,
-                  height: 50,
-                  child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    onPressed: () {
-                      Route route = MaterialPageRoute(
                         builder: (context) => DayView(selectDay: selectDay),
                       );
                       Navigator.push(context, route);
@@ -125,6 +120,24 @@ class _CalendarState extends State<Calendar> {
                   ),
                 ),
               ],
+            ),
+          ],
+        ),
+      ),
+      drawer: Drawer(
+        child: ListView(
+          children: <Widget>[
+            ListTile(
+              title: Text("Personalize Color"),
+              trailing: RaisedButton(
+                onPressed: () {
+                  Route route = MaterialPageRoute(
+                    builder: (context) => customColor(),
+                  );
+                  Navigator.push(context, route);
+                },
+                color: Colors.blue,
+              ),
             ),
           ],
         ),

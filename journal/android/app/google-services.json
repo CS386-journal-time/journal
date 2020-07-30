@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "756027257043",
+    "firebase_url": "https://journal-time-70076.firebaseio.com",
+    "project_id": "journal-time-70076",
+    "storage_bucket": "journal-time-70076.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756027257043:android:54fdea92793bb3dc70e426",
+        "android_client_info": {
+          "package_name": "com.team3.journaltime"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756027257043-jv3hfa0n1framhahub6s6pj0f8m2s6ie.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC2V7PV2WM8Q0v_g2TKKVmDgpde0HvorJA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756027257043-jv3hfa0n1framhahub6s6pj0f8m2s6ie.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

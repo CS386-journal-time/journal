@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:journal/Calendar.dart';
+import 'package:journal/models/user.dart';
+import 'package:provider/provider.dart';
+import 'package:journal/user_auth/interfaceWrapper.dart';
+import 'package:journal/user_auth/serverAuth.dart';
 
 void main() {
   runApp(MyApp());
@@ -12,7 +15,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Flutter Demo',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        //primarySwatch: Colors.blue,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
       home: MyHomePage(),
@@ -28,8 +31,14 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Calendar(),
+    return StreamProvider<User>.value(
+      value: ServerAuth().user,
+      child: MaterialApp(
+        theme: ThemeData(
+          visualDensity: VisualDensity.adaptivePlatformDensity,
+        ),
+        home: Wrapper(),
+      ),
     );
   }
 }

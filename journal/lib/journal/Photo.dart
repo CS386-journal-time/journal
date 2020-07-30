@@ -29,11 +29,10 @@ class _PhotoState extends State<Photo> {
     var pickedFile = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
-      _image = File(pickedFile.path);;
+      _image = File(pickedFile.path);
     });
   }
-
-
+  
   // alert for choice between camera and gallery
   Future showAlertDialog() {
     return showDialog(
@@ -78,11 +77,10 @@ class _PhotoState extends State<Photo> {
     );
   }
 
-
   // card container for selected image
   Widget imageCard(File localImage) {
       return Container(
-      width: 240.0,
+      height: 200.0,
       child: GestureDetector(
         onTap: showAlertDialog,
         child: Container(
@@ -103,7 +101,6 @@ class _PhotoState extends State<Photo> {
       ),
     );
   }
-
 
   @override
   Widget build(BuildContext context) {
