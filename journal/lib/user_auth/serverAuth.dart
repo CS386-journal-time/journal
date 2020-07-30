@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:journal/services/database.dart';
-import 'file:///C:/Users/burch/OneDrive/Documents/NAU%20Summer%202020/CS%20386/journal/journal/lib/models/user.dart';
+import 'package:journal/models/user.dart';
 
 
 // server authentication

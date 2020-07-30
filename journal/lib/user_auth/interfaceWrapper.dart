@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:journal/services/authentication.dart';
-import 'file:///C:/Users/burch/OneDrive/Documents/NAU%20Summer%202020/CS%20386/journal/journal/lib/models/user.dart';
+import 'package:journal/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:journal/journal//Calendar.dart';
 

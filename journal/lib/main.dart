@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'file:///C:/Users/burch/OneDrive/Documents/NAU%20Summer%202020/CS%20386/journal/journal/lib/models/user.dart';
+import 'package:journal/models/user.dart';
 import 'package:provider/provider.dart';
 import 'package:journal/user_auth/interfaceWrapper.dart';
 import 'package:journal/user_auth/serverAuth.dart';
