@@ -4,6 +4,8 @@ import 'package:journal/shared/constants.dart';
 import 'package:journal/shared/loading.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
+// user authentication registration form
+
 class Register extends StatefulWidget {
   final Function toggleView;
 
