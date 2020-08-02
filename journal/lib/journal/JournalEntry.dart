@@ -17,7 +17,7 @@ class JournalEntry extends StatefulWidget {
 
   File localImageEntry;
 
-  JournalEntry({this.selectDay});
+  JournalEntry({this.selectDay, this.localTextEntry});
 
   @override
   _JournalEntryState createState() => _JournalEntryState();
@@ -25,7 +25,6 @@ class JournalEntry extends StatefulWidget {
 
 
 class _JournalEntryState extends State<JournalEntry> {
-
 
   void dispose() {
     super.dispose();
@@ -41,8 +40,11 @@ class _JournalEntryState extends State<JournalEntry> {
 
     // instance of text and image state
     final _textController = TextEditingController();
+    _textController.text = widget.localTextEntry;
     final Photo imageCard = new Photo();
 
+    // pre filling text box and image card with information from server
+    _textController.text = widget.localTextEntry;
 
     return Scaffold(
       appBar: AppBar(
@@ -70,7 +72,7 @@ class _JournalEntryState extends State<JournalEntry> {
             Container(
               padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
               height: maxLine * 8.0,
-              child: TextField(
+              child: TextFormField(
                 enabled: true,
                 controller: _textController,
                 obscureText: false,
@@ -78,7 +80,7 @@ class _JournalEntryState extends State<JournalEntry> {
                 maxLines: maxLine,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  labelText: 'Journal Time',
+                  //labelText: 'Journal Time',
                 ),
               ),
             ),

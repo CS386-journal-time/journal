@@ -6,6 +6,7 @@ import 'package:firebase_storage/firebase_storage.dart';
 class DatabaseService {
 
    final String uid;
+   String imageURL;
 
    DatabaseService({this.uid});
 
@@ -20,10 +21,15 @@ class DatabaseService {
           .child(uid)
           .child(date);
 
-      StorageUploadTask uploadTask = entryStorage.child('image').putFile(image);
 
-      String imageURL = await (await uploadTask.onComplete).ref
-          .getDownloadURL();
+      if (image != null)
+      {
+        StorageUploadTask uploadTask = entryStorage.child('image').putFile(image);
+
+        imageURL = await (await uploadTask.onComplete).ref
+            .getDownloadURL();
+      }
+
 
       return await entryCollection.document(uid).collection(date).document(
           'context').setData({

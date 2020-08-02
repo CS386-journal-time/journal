@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -19,12 +18,11 @@ class DayView extends StatefulWidget {
   _DayViewState createState() => _DayViewState();
 }
 
-
 class _DayViewState extends State<DayView> {
 
-  String pulledTextEntry;
+  String pulledTextEntry = '';
 
-  String pulledImageURL;
+  String pulledImageURL = '';
 
   final int maxLine = 30;
 
@@ -52,7 +50,7 @@ class _DayViewState extends State<DayView> {
                 borderRadius: BorderRadius.circular(10.0)
             ),
             child: Container(
-              child: pulledImageURL == ''
+              child: pulledImageURL == null || pulledImageURL.isEmpty
                   ? Icon(FontAwesomeIcons.image)
                   : Image.network(pulledImageURL, fit: BoxFit.cover),
             ),
@@ -70,33 +68,26 @@ class _DayViewState extends State<DayView> {
     DatabaseService service = new DatabaseService(uid: user.uid);
 
 
-    // take as snapshot of user's data
+    // take as snapshot of user's data for selected day
     Stream<DocumentSnapshot> dateDoc = service.entryCollection
           .document(user.uid)
           .collection(widget.selectDay)
           .document('context').snapshots();
+
 
     // builds widgets wth data returned from firebase
     return StreamBuilder<DocumentSnapshot>(
       stream: dateDoc,
       builder: (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
 
+        if (snapshot.data?.exists ?? false) {
+
           var entryDocument = snapshot.data.data;
 
-          if(entryDocument != null)
-          {
-            pulledTextEntry = entryDocument['textEntry'];
+          pulledTextEntry = entryDocument['textEntry'];
 
-            pulledImageURL = entryDocument['imageURL'];
-          }
-
-        else
-          {
-
-            pulledTextEntry = '';
-
-            pulledImageURL =  '';
-          }
+          pulledImageURL = entryDocument['imageURL'];
+        }
 
         return Scaffold(
           appBar: AppBar(
@@ -110,6 +101,7 @@ class _DayViewState extends State<DayView> {
                     builder: (context) =>
                         JournalEntry(
                           selectDay: widget.selectDay,
+                          localTextEntry: pulledTextEntry,
                         ),
                   );
                   Navigator.push(context, route);
