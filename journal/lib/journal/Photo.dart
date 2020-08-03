@@ -6,21 +6,22 @@ import 'dart:io';
 
 class Photo extends StatefulWidget {
 
+  File localImage;
+
   @override
   _PhotoState createState() => _PhotoState();
 }
 
 class _PhotoState extends State<Photo> {
-  File _image;
-  final picker = ImagePicker();
 
+  final picker = ImagePicker();
 
   // method to import image from gallery
   Future _getImageGallery() async {
     var pickedFile = await picker.getImage(source: ImageSource.gallery);
 
     setState(() {
-      _image = File(pickedFile.path);;
+     widget.localImage = File(pickedFile.path);
     });
   }
 
@@ -29,7 +30,7 @@ class _PhotoState extends State<Photo> {
     var pickedFile = await picker.getImage(source: ImageSource.camera);
 
     setState(() {
-      _image = File(pickedFile.path);
+      widget.localImage = File(pickedFile.path);
     });
   }
   
@@ -77,8 +78,8 @@ class _PhotoState extends State<Photo> {
     );
   }
 
-  // card container for selected image
-  Widget imageCard(File localImage) {
+  // card container for selected image from image picker
+  Widget imageCard() {
       return Container(
       height: 200.0,
       child: GestureDetector(
@@ -92,9 +93,9 @@ class _PhotoState extends State<Photo> {
               borderRadius: BorderRadius.circular(10.0)
             ),
             child: Container(
-              child: localImage == null
+              child: widget.localImage == null
                   ? Icon(FontAwesomeIcons.image)
-                  : Image.file(localImage, fit: BoxFit.cover,),
+                  : Image.file(widget.localImage, fit: BoxFit.cover),
             ),
           ),
         ),
@@ -102,8 +103,9 @@ class _PhotoState extends State<Photo> {
     );
   }
 
+  // build return the card with the selected image
   @override
   Widget build(BuildContext context) {
-    return imageCard(_image);
+    return imageCard();
   }
 }

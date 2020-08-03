@@ -1,36 +1,37 @@
+import 'dart:io';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:journal/models/entry.dart';
-
+import 'package:firebase_storage/firebase_storage.dart';
 
 class DatabaseService {
-
   final String uid;
-  DatabaseService({ this.uid });
+  String imageURL;
 
-  // collection reference
+  DatabaseService({this.uid});
+
+  // retrieves user document location within firebase
   final CollectionReference entryCollection =
-    Firestore.instance.collection('entries');
+      Firestore.instance.collection('entries');
 
+  // updates the database within the firebase
+  Future updateUserData(
+      String date, String textEntry, File image, String weatherText) async {
+    StorageReference entryStorage =
+        FirebaseStorage.instance.ref().child(uid).child(date);
 
-  Future updateUserData(String textEntry, List imageEntry) async {
+    if (image != null) {
+      StorageUploadTask uploadTask = entryStorage.child('image').putFile(image);
 
-    return await entryCollection.document('dates');
+      imageURL = await (await uploadTask.onComplete).ref.getDownloadURL();
+    }
+
+    return await entryCollection
+        .document(uid)
+        .collection(date)
+        .document('context')
+        .setData({
+      'textEntry': textEntry,
+      'imageURL': imageURL,
+      'weatherText': weatherText
+    });
   }
-
-  // entry list from snapshot
-  List<Entry> _entryListFromSnapshot(QuerySnapshot snapshot)
-  {
-    return snapshot.documents.map((doc){
-      return Entry(
-        textEntry: doc.data['textEntry'] ?? '',
-        imageEntry: doc.data['imageEntry'] ?? null,
-      );
-    }).toList();
-  }
-
-
-  Stream<List> get entries {
-    return entryCollection.snapshots().map(_entryListFromSnapshot);
-  }
-
 }

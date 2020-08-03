@@ -3,7 +3,7 @@ import 'package:journal/user_auth/serverAuth.dart';
 import 'package:journal/shared/constants.dart';
 import 'package:journal/shared/loading.dart';
 
-// sign in buttons
+// user authentication sign in form
 
 class SignIn extends StatefulWidget {
 

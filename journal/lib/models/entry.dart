@@ -1,8 +1,11 @@
+// database entry model
+
 class Entry {
-
   final String textEntry;
-  final List imageEntry;
 
- Entry({this.textEntry,  this.imageEntry});
+  final String imageEntry;
 
+  final String weatherText;
+
+  Entry({this.textEntry, this.imageEntry, this.weatherText});
 }

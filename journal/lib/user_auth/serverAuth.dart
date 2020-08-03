@@ -1,9 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:journal/services/database.dart';
 import 'package:journal/models/user.dart';
 
 
-// server authentication
+// server authentication for user sign in and registration
 
 class ServerAuth {
 
@@ -15,13 +14,13 @@ class ServerAuth {
     return user != null ? User(uid: user.uid) : null;
   }
 
-  // auth change user stream
+  // user authentication stream
   Stream<User> get user {
     return _auth.onAuthStateChanged
         .map((FirebaseUser user) => _userFromFirebaseUser(user));
   }
 
-    // sign in email
+  // sign in user
   Future signInAccount(String email, String password) async {
     try {
       AuthResult result = await _auth.signInWithEmailAndPassword(
@@ -36,16 +35,13 @@ class ServerAuth {
   }
 
 
-    // register
+  // register new user
   Future registerAccount(String email, String password) async {
     try {
       AuthResult result = await _auth.createUserWithEmailAndPassword(
           email: email,
           password: password);
       FirebaseUser user = result.user;
-
-      // create new document for user with uid
-      await DatabaseService(uid: user.uid).updateUserData('', null);
 
       return _userFromFirebaseUser(user);
     } catch (error) {
@@ -54,7 +50,7 @@ class ServerAuth {
     }
   }
 
-    // sign out
+  // sign out user
   Future signOut() async
   {
     try {
