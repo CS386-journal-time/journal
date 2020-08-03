@@ -7,15 +7,17 @@ import 'package:journal/services/database.dart';
 import 'package:provider/provider.dart';
 import 'package:journal/shared/loading.dart';
 import 'mapFeature.dart';
-
+import 'Weather.dart';
+import 'Calendar.dart';
 
 class JournalEntry extends StatefulWidget {
-
   final String selectDay;
 
   String localTextEntry;
 
   File localImageEntry;
+
+  String localWeather;
 
   JournalEntry({this.selectDay, this.localTextEntry});
 
@@ -23,9 +25,7 @@ class JournalEntry extends StatefulWidget {
   _JournalEntryState createState() => _JournalEntryState();
 }
 
-
 class _JournalEntryState extends State<JournalEntry> {
-
   void dispose() {
     super.dispose();
   }
@@ -42,6 +42,7 @@ class _JournalEntryState extends State<JournalEntry> {
     final _textController = TextEditingController();
     _textController.text = widget.localTextEntry;
     final Photo imageCard = new Photo();
+    final Weather weatherStorm = new Weather();
 
     // pre filling text box and image card with information from server
     _textController.text = widget.localTextEntry;
@@ -57,8 +58,10 @@ class _JournalEntryState extends State<JournalEntry> {
               setState(() {
                 widget.localTextEntry = _textController.text;
                 widget.localImageEntry = imageCard.localImage;
+                widget.localWeather = weatherStorm.weatherReport;
               });
-              service.updateUserData(widget.selectDay, widget.localTextEntry, widget.localImageEntry);
+              service.updateUserData(widget.selectDay, widget.localTextEntry,
+                  widget.localImageEntry, widget.localWeather);
               Navigator.pop(context);
             },
             icon: Icon(FontAwesomeIcons.save),
@@ -73,6 +76,10 @@ class _JournalEntryState extends State<JournalEntry> {
               padding: EdgeInsets.fromLTRB(10, 20, 10, 10),
               height: maxLine * 8.0,
               child: TextFormField(
+                style: TextStyle(
+                  fontSize: 16,
+                  letterSpacing: .5,
+                ),
                 enabled: true,
                 controller: _textController,
                 obscureText: false,
@@ -86,6 +93,8 @@ class _JournalEntryState extends State<JournalEntry> {
             ),
             imageCard.createElement().widget,
             SizedBox(height: 20),
+            weatherStorm.createElement().widget,
+            SizedBox(height: 20),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: <Widget>[
@@ -97,32 +106,14 @@ class _JournalEntryState extends State<JournalEntry> {
                       borderRadius: BorderRadius.circular(10.0),
                     ),
                     onPressed: () {
-                      print(user.uid);
-                    },
-                    label: Text('Calendar'),
-                    //color: Colors.blueGrey,
-                    textColor: Colors.white,
-                    icon: Icon(Icons.explore),
-                  ),
-                ),
-                ButtonTheme(
-                  minWidth: 200,
-                  height: 50,
-                  child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    onPressed: () {
-                      Route route = MaterialPageRoute(
-                        builder: (context) =>
-                            mapFeature(selectDay: widget.selectDay),
-                      );
+                      Route route =
+                          MaterialPageRoute(builder: (context) => Calendar());
                       Navigator.push(context, route);
                     },
-                    label: Text('View Map'),
-                    //color: Colors.blueGrey,
+                    label: Text('Home'),
+                    color: Colors.blue[200],
                     textColor: Colors.white,
-                    icon: Icon(Icons.map),
+                    icon: Icon(Icons.explore),
                   ),
                 ),
               ],
