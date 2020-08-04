@@ -27,6 +27,7 @@ class ServerAuth {
           email: email,
           password: password);
       FirebaseUser user = result.user;
+
       return _userFromFirebaseUser(user);
     } catch (error) {
       print(error.toString());

@@ -7,7 +7,6 @@ import 'package:journal/journal/DayView.dart';
 import 'package:intl/intl.dart';
 import 'package:journal/user_auth/serverAuth.dart';
 import 'package:journal/journal/customColor.dart';
-import 'package:journal/services/database.dart';
 import 'package:provider/provider.dart';
 
 class Calendar extends StatefulWidget {
@@ -43,7 +42,7 @@ class _CalendarState extends State<Calendar> {
   @override
   Widget build(BuildContext context) {
 
-    // instances of the authentication servcie
+    // instances of the authentication service
     final ServerAuth _auth = new ServerAuth();
 
 

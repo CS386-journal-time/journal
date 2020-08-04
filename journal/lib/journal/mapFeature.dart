@@ -51,16 +51,6 @@ class _mapFeatureState extends State<mapFeature> {
               subdomains: ['a', 'b', 'c'],
             ),
           ]),
-      floatingActionButton: FloatingActionButton.extended(
-        onPressed: () {
-          Route route = MaterialPageRoute(
-            builder: (context) => DayView(selectDay: widget.selectDay),
-          );
-          Navigator.push(context, route);
-        },
-        label: Text('To Journal'),
-        icon: Icon(FontAwesomeIcons.journalWhills),
-      ),
     );
   }
 }
