@@ -5,8 +5,6 @@ import 'package:journal/journal/Photo.dart';
 import 'package:journal/models/user.dart';
 import 'package:journal/services/database.dart';
 import 'package:provider/provider.dart';
-import 'package:journal/shared/loading.dart';
-import 'mapFeature.dart';
 import 'Weather.dart';
 import 'Calendar.dart';
 
@@ -40,7 +38,6 @@ class _JournalEntryState extends State<JournalEntry> {
 
     // instance of text and image state
     final _textController = TextEditingController();
-    _textController.text = widget.localTextEntry;
     final Photo imageCard = new Photo();
     final Weather weatherStorm = new Weather();
 
@@ -87,7 +84,7 @@ class _JournalEntryState extends State<JournalEntry> {
                 maxLines: maxLine,
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-                  //labelText: 'Journal Time',
+                  labelText: 'Journal Time',
                 ),
               ),
             ),
@@ -95,29 +92,6 @@ class _JournalEntryState extends State<JournalEntry> {
             SizedBox(height: 20),
             weatherStorm.createElement().widget,
             SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                ButtonTheme(
-                  minWidth: 200,
-                  height: 50,
-                  child: RaisedButton.icon(
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(10.0),
-                    ),
-                    onPressed: () {
-                      Route route =
-                          MaterialPageRoute(builder: (context) => Calendar());
-                      Navigator.push(context, route);
-                    },
-                    label: Text('Home'),
-                    color: Colors.blue[200],
-                    textColor: Colors.white,
-                    icon: Icon(Icons.explore),
-                  ),
-                ),
-              ],
-            ),
           ],
         ),
       ),

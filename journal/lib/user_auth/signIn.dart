@@ -93,7 +93,7 @@ class _SignInState extends State<SignIn> {
                         loading = true;
                       });
 
-                      dynamic result = _auth.signInAccount(email, password);
+                      dynamic result = await _auth.signInAccount(email, password);
 
                       if(result == null) {
                         setState(() {

@@ -40,7 +40,7 @@ class _DayViewState extends State<DayView> {
   Widget imageCardServer() {
     return Container(
       height: 200.0,
-      width: 400.0,
+      width: 390.0,
       margin: EdgeInsets.all(5.0),
       child: GestureDetector(
         child: Container(
@@ -79,6 +79,7 @@ class _DayViewState extends State<DayView> {
       stream: dateDoc,
       builder:
           (BuildContext context, AsyncSnapshot<DocumentSnapshot> snapshot) {
+
         if (snapshot.data?.exists ?? false) {
           var entryDocument = snapshot.data.data;
 
@@ -148,7 +149,7 @@ class _DayViewState extends State<DayView> {
                         ),
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -157,7 +158,7 @@ class _DayViewState extends State<DayView> {
                   ],
                 ),
                 SizedBox(
-                  height: 30,
+                  height: 10,
                 ),
                 Center(
                   child: Padding(
@@ -171,9 +172,6 @@ class _DayViewState extends State<DayView> {
                       ),
                     ),
                   ),
-                ),
-                SizedBox(
-                  height: 30,
                 ),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -199,24 +197,6 @@ class _DayViewState extends State<DayView> {
                       ),
                     ),
                     SizedBox(height: 30),
-                    ButtonTheme(
-                      minWidth: 200,
-                      height: 50,
-                      child: RaisedButton.icon(
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(10.0),
-                        ),
-                        onPressed: () {
-                          Route route = MaterialPageRoute(
-                              builder: (context) => Calendar());
-                          Navigator.push(context, route);
-                        },
-                        label: Text('Home'),
-                        color: Colors.blue[200],
-                        textColor: Colors.white,
-                        icon: Icon(Icons.explore),
-                      ),
-                    ),
                   ],
                 ),
               ],
